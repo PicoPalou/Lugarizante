@@ -7,7 +7,8 @@ const biblioteca = [
 ];
 
 // 2. Seleccionem els elements del DOM
-const llistaBiblioteca = document.getElementById('llista-biblioteca');
+const listaBiblioteca = document.getElementById('lista-biblioteca');
+const listaCola = [];
 
 // 3. Funció per carregar la biblioteca a la columna esquerra
 function carregarBiblioteca() {
@@ -18,12 +19,23 @@ function carregarBiblioteca() {
         // Afegim el contingut: Nom i botó d'afegir
         li.innerHTML = `
             <span>${canço.nom}</span>
-            <button onclick="afegirALaCua('${canço.nom}', '${canço.url}')">+</button>
+            <button onclick="añadir('${canço.nom}', '${canço.url}')">+</button>
         `;
 
         // L'afegim al contenidor de l'esquerra
-        llistaBiblioteca.appendChild(li);
+        listaBiblioteca.appendChild(li);
     });
+}
+
+function añadir(nombre, url) {
+    listaCola.push(nombre);
+    listaCola.forEach(elemento => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${canço.nom}</span>
+            <button onclick="añadir('${canço.nom}', '${canço.url}')">+</button>
+        `;
+    })
 }
 
 // Inicialitzem la càrrega en obrir la pàgina
