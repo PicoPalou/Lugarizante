@@ -1,12 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>Lugarizante</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="index.js"></script>
+    <title>Mini Spotify Clone</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Lugarizante</h1>
+
+<header class="main-header">
+    <div class="logo">SimpleSpotify</div>
+    <nav>
+        <input type="text" placeholder="Cerca la teva música...">
+    </nav>
+</header>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <h3>La teva Biblioteca</h3>
+        <ul id="llista-biblioteca">
+        </ul>
+    </aside>
+
+    <main class="content">
+        <div class="player-controls">
+            <h2>Ara sona</h2>
+            <div class="buttons">
+                <button id="btn-play" onclick="reproduir()">▶ Play</button>
+                <button id="btn-pause">⏸ Pause</button>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h3>Cua de reproducció</h3>
+            <ul id="cua-reproduccio">
+            </ul>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
