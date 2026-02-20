@@ -3,13 +3,19 @@ const biblioteca = [
     { nom: "Blinding Lights", url: "https://audio.com/blinding-lights" },
     { nom: "Bohemian Rhapsody", url: "https://audio.com/bohemian" },
     { nom: "Levitating", url: "https://audio.com/levitating" },
-    { nom: "Shape of You", url: "https://audio.com/shape-of-you" }
+    { nom: "Shape of You", url: "https://audio.com/shape-of-you" },
+    { nom: "Cancion Test", url: "audios/test_sound.mp3" }
 ];
 
 // 2. Seleccionem els elements del DOM
 const listaBiblioteca = document.getElementById('lista-biblioteca');
 const listaCola = document.getElementById('lista-cola');
 const cancionesCola = [];
+
+let audio = new Audio();
+let num_cancion = 0
+let reproduciendo = false
+
 // 3. Funció per carregar la biblioteca a la columna esquerra
 function carregarBiblioteca() {
     biblioteca.forEach(cancion => {
@@ -19,7 +25,7 @@ function carregarBiblioteca() {
         // Afegim el contingut: Nom i botó d'afegir
         li.innerHTML = `
             <span>${cancion.nom}</span>
-            <button onclick="añadir('${cancion.nom}', '${cancion.url}')">+</button>
+            <button onclick="añadir('${cancion.nom}')">+</button>
         `;
 
         // L'afegim al contenidor de l'esquerra
@@ -27,9 +33,8 @@ function carregarBiblioteca() {
     });
 }
 
-function añadir(nombre, url) {
+function añadir(nombre) {
     cancionesCola.push(nombre);
-    console.log("cancionesCola:", cancionesCola);
     const li = document.createElement('li');
     let id = cancionesCola.length - 1;
     li.innerHTML = `
@@ -42,7 +47,6 @@ function añadir(nombre, url) {
 function quitar(num) {
     listaCola.innerHTML = '';
     cancionesCola.splice(num, 1);
-    console.log("hay", cancionesCola.length);
     // cancionesCola.forEach(cancion => {
     //     let id = cancionesCola.length;
     //     console.log("soy el numero", id, cancion)
@@ -55,7 +59,6 @@ function quitar(num) {
     //     listaCola.appendChild(li);
     // })
     for (let i = 0; i < cancionesCola.length; i++) {
-        console.log("soy", i, cancionesCola[i]);
 
         const li = document.createElement('li');
         li.innerHTML = `
@@ -68,7 +71,28 @@ function quitar(num) {
 }
 
 function play(){
-    console.log("Reproduciendo", cancionesCola[0]);
+    console.log("Reproduciendo", cancionesCola[num_cancion]);
+    let url = ""
+    for (let i = 0; i < biblioteca.length; i++) {
+        if(biblioteca[i].nom === cancionesCola[num_cancion]) {
+            url = biblioteca[i].url;
+        }
+    }
+    console.log("url:", url)
+    if (reproduciendo === false || cancionesCola.length > 0) {
+        audio = new Audio(url);
+        audio.play();
+        reproduciendo = true;
+        audio.addEventListener("ended", () => {
+            console.log("Se ha pausado la reproducción");
+            reproduciendo = false;
+        });
+    }
+}
+
+function pausar(){
+    audio.pause()
+    reproduciendo = false;
 }
 
 // Inicialitzem la càrrega en obrir la pàgina
