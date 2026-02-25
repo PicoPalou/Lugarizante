@@ -78,3 +78,7 @@ button:hover { transform: scale(1.05); }
     border: 1px solid #1DB954;
     border-radius: 10px;
 }
+
+.botones-orden{
+    display: flex;
+}
