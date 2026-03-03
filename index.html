@@ -9,9 +9,6 @@
 
 <header class="main-header">
     <div class="logo">Lugarizante</div>
-    <nav>
-        <input type="text" placeholder="Buscar">
-    </nav>
 </header>
 
 <div class="app-container">
@@ -25,8 +22,10 @@
         <div class="player-controls">
             <h2>Sonando</h2>
             <div class="buttons">
+                <button id="btn-anterior" onclick="anterior()">⬅ Anterior</button>
                 <button id="btn-play" onclick="play()">▶ Play</button>
                 <button id="btn-pause" onclick="pausar()">⏸ Pause</button>
+                <button id="btn-siguiente" onclick="siguiente()">Siguiente ➡</button>
                 <button id="btn-random" onclick="aleatorio()">⚄ Random</button>
                 <button id="btn-vaciar" onclick="vaciar()">🗑 Vaciar</button>
             </div>

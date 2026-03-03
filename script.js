@@ -1,6 +1,6 @@
 // 1. Dades de les cancionns (Objectes senzills)
 const biblioteca = [
-    { nom: "Animals", url: "audios/animals.mp3" },
+    { nom: "Animals", url: "audios/Animals.wav" },
     { nom: "Pollito Pio", url: "audios/pollito.mp3" },
     { nom: "Levitating", url: "https://audio.com/levitating" },
     { nom: "Shape of You", url: "https://audio.com/shape-of-you" },
@@ -15,6 +15,7 @@ let cancionesCola = [];
 let audio
 let num_cancion = 0
 let reproduciendo = false
+let pausado = false;
 
 // 3. Funció per carregar la biblioteca a la columna esquerra
 function carregarBiblioteca() {
@@ -39,8 +40,8 @@ function añadir(nombre) {
     let id = cancionesCola.length - 1;
     li.innerHTML = `
             <div class="botones-orden">
-                <button onclick="subir(${id})">subir</button>
-                <button onclick="bajar(${id})">bajar</button>
+                <button onclick="subir(${id})">⬆</button>
+                <button onclick="bajar(${id})">⬇</button>
             </div>
             <span>${nombre}</span>
             <button onclick="quitar(${id})">-</button>
@@ -57,8 +58,8 @@ function quitar(num) {
         const li = document.createElement('li');
         li.innerHTML = `
             <div class="botones-orden">
-                <button onclick="subir(${i})">subir</button>
-                <button onclick="bajar(${i})">bajar</button>
+                <button onclick="subir(${i})">⬆</button>
+                <button onclick="bajar(${i})">⬇</button>
             </div>
             <span>${cancionesCola[i]}</span>
             <button onclick="quitar(${i})">-</button>
@@ -77,17 +78,20 @@ function play(){
         }
     }
     console.log("url:", url)
-    if (reproduciendo === false || cancionesCola.length > 0) {
-        if(audio === undefined) {
+    if (reproduciendo === false && cancionesCola.length > 0) {
+        if(pausado === false) {
             audio = new Audio(url);
             audio.play();
         }
         else{
+            console.log("estoy aqui")
+            pausado = false
             audio.play();
         }
         reproduciendo = true;
         audio.addEventListener("ended", () => {
             console.log("Se ha pausado la reproducción");
+            reproduciendo = false;
             num_cancion++;
             if(num_cancion < cancionesCola.length) {
                 play()
@@ -103,6 +107,7 @@ function play(){
 function pausar(){
     audio.pause()
     reproduciendo = false;
+    pausado = true;
 }
 
 function aleatorio(){
@@ -129,8 +134,8 @@ function subir(id){
             const li = document.createElement('li');
             li.innerHTML = `
             <div class="botones-orden">
-                <button onclick="subir(${i})">subir</button>
-                <button onclick="bajar(${i})">bajar</button>
+                <button onclick="subir(${i})">⬆</button>
+                <button onclick="bajar(${i})">⬇</button>
             </div>
             <span>${cancionesCola[i]}</span>
             <button onclick="quitar(${i})">-</button>
@@ -158,8 +163,8 @@ function bajar(id){
             const li = document.createElement('li');
             li.innerHTML = `
             <div class="botones-orden">
-                <button onclick="subir(${i})">subir</button>
-                <button onclick="bajar(${i})">bajar</button>
+                <button onclick="subir(${i})">⬆</button>
+                <button onclick="bajar(${i})">⬇</button>
             </div>
             <span>${cancionesCola[i]}</span>
             <button onclick="quitar(${i})">-</button>
@@ -172,6 +177,10 @@ function bajar(id){
         console.log(":(")
     }
 }
+
+function siguiente(){}
+
+function anterior(){}
 
 // Inicialitzem la càrrega en obrir la pàgina
 carregarBiblioteca();
