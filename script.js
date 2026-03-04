@@ -15,6 +15,7 @@ const listaCola = document.getElementById('lista-cola');
 let sonando = document.getElementById('sonando');
 let cancionesCola = [];
 
+// variables para controlar el reproductor de audio
 let audio = new Audio();
 let num_cancion = 0
 let reproduciendo = false
@@ -37,6 +38,8 @@ function carregarBiblioteca() {
     });
 }
 
+
+// funcion que añade canciones a la lista, y las dibuja como boton, agregandoles una id diferente a cada una
 function añadir(nombre) {
     cancionesCola.push(nombre);
     const li = document.createElement('li');
@@ -52,6 +55,7 @@ function añadir(nombre) {
     listaCola.appendChild(li);
 }
 
+// funcion que elimina canciones de la lista, y actualiza las id de los demas botones
 function quitar(num) {
     listaCola.innerHTML = '';
     cancionesCola.splice(num, 1);
@@ -72,6 +76,7 @@ function quitar(num) {
     }
 }
 
+// funcion que empieza a reproducir la cancion correspondiente segun la ultima reproducida
 function play(){
     console.log("Reproduciendo", cancionesCola[num_cancion]);
     sonando.innerHTML = `<h2>Sonando: ${cancionesCola[num_cancion]}</h2>`;
@@ -101,6 +106,7 @@ function play(){
                 play()
             }
             else {
+                sonando.innerHTML = `<h2>Dale al play</h2>`;
                 num_cancion = 0
                 reproduciendo = false;
             }
@@ -108,23 +114,28 @@ function play(){
     }
 }
 
+
+// funcion que pausa la cancion
 function pausar(){
     audio.pause()
     reproduciendo = false;
     pausado = true;
 }
 
+// funcion que agrega una cancion aleatoria desde la biblioteca
 function aleatorio(){
     let cancion_aletoria = Math.trunc(Math.random() * biblioteca.length);
     añadir(biblioteca[cancion_aletoria].nom);
 }
 
+// funcion que vaciaa toda la lista
 function vaciar(){
     listaCola.innerHTML = '';
     cancionesCola = []
     num_cancion = 0;
 }
 
+// funcion que permite cambiar la posicion de una cancion 1 posicion para arriba, y actualiza las id
 function subir(id){
     if(id > 0) {
 
@@ -154,6 +165,7 @@ function subir(id){
 
 }
 
+// funcion que permite cambiar la posicion de una cancion 1 posicion para abajo, y actualiza las id
 function bajar(id){
     if(id < cancionesCola.length - 1) {
 
@@ -182,6 +194,7 @@ function bajar(id){
     }
 }
 
+// salta a la siguiente cancion si es posible
 function siguiente(){
     if(num_cancion < cancionesCola.length - 1) {
         reproduciendo = false;
@@ -192,6 +205,7 @@ function siguiente(){
     }
 }
 
+// salta a la cancion anterior si es posible
 function anterior(){
     if(num_cancion > 0) {
         reproduciendo = false;
