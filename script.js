@@ -1,18 +1,21 @@
 // 1. Dades de les cancionns (Objectes senzills)
 const biblioteca = [
-    { nom: "Animals", url: "audios/Animals.wav" },
+    { nom: "Animals", url: "audios/animals.wav" },
+    { nom: "Around the world", url: "audios/around_the_world.mp3" },
+    { nom: "Caliente", url: "audios/caliente.mp3" },
+    { nom: "Dile Que Tu Me Quieres", url: "audios/dile_que_tu_me_quieres.mp3" },
     { nom: "Pollito Pio", url: "audios/pollito.mp3" },
-    { nom: "Levitating", url: "https://audio.com/levitating" },
-    { nom: "Shape of You", url: "https://audio.com/shape-of-you" },
-    { nom: "Cancion Test", url: "audios/test_sound.mp3" }
+    { nom: "Shape of You", url: "audios/shape_of_you.wav" },
+    { nom: "Traicionera", url: "audios/traicionera.mp3" }
 ];
 
 // 2. Seleccionem els elements del DOM
 const listaBiblioteca = document.getElementById('lista-biblioteca');
 const listaCola = document.getElementById('lista-cola');
+let sonando = document.getElementById('sonando');
 let cancionesCola = [];
 
-let audio
+let audio = new Audio();
 let num_cancion = 0
 let reproduciendo = false
 let pausado = false;
@@ -71,6 +74,7 @@ function quitar(num) {
 
 function play(){
     console.log("Reproduciendo", cancionesCola[num_cancion]);
+    sonando.innerHTML = `<h2>Sonando: ${cancionesCola[num_cancion]}</h2>`;
     let url = ""
     for (let i = 0; i < biblioteca.length; i++) {
         if(biblioteca[i].nom === cancionesCola[num_cancion]) {
@@ -80,7 +84,7 @@ function play(){
     console.log("url:", url)
     if (reproduciendo === false && cancionesCola.length > 0) {
         if(pausado === false) {
-            audio = new Audio(url);
+            audio.src = url
             audio.play();
         }
         else{
@@ -178,9 +182,25 @@ function bajar(id){
     }
 }
 
-function siguiente(){}
+function siguiente(){
+    if(num_cancion < cancionesCola.length - 1) {
+        reproduciendo = false;
+        pausado = false;
+        audio.pause()
+        num_cancion++
+        play()
+    }
+}
 
-function anterior(){}
+function anterior(){
+    if(num_cancion > 0) {
+        reproduciendo = false;
+        pausado = false;
+        audio.pause()
+        num_cancion--
+        play()
+    }
+}
 
 // Inicialitzem la càrrega en obrir la pàgina
 carregarBiblioteca();
